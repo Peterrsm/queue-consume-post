@@ -2,8 +2,8 @@ package com.pedromiranda.queueconsumepost.controller;
 
 import com.pedromiranda.queueconsumepost.controller.interfaces.IMessagingController;
 import com.pedromiranda.queueconsumepost.message.Consumer;
-import com.pedromiranda.queueconsumepost.message.MessageToSend;
 import com.pedromiranda.queueconsumepost.message.Publisher;
+import com.pedromiranda.queueconsumepost.message.objects.MessageToSend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,16 +22,6 @@ public class MessagingController implements IMessagingController {
 
     @Override
     public void sendMessageToQueue(MessageToSend message) throws IOException, TimeoutException {
-        pub.publishMessage(message.getMessage());
-    }
-
-    @Override
-    public void consumeQueue() throws IOException, TimeoutException {
-        cons.consumeQueue();
-    }
-
-    @Override
-    public void stopConsuming() throws IOException, TimeoutException {
-        cons.stopConsuming();
+        pub.publishMessage(message.getQueue_name(), message.getMessage());
     }
 }
