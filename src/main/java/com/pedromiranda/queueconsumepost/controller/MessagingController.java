@@ -24,4 +24,24 @@ public class MessagingController implements IMessagingController {
     public void sendMessageToQueue(MessageToSend message) throws IOException, TimeoutException {
         pub.publishMessage(message.getQueue_name(), message.getMessage());
     }
+
+    @Override
+    public void sendMessageToDirectExchange(MessageToSend message) throws IOException, TimeoutException {
+        pub.publishMessage(message.getQueue_name(), message.getMessage());
+    }
+
+    @Override
+    public void sendMessageToFannoutExchange(MessageToSend message) throws IOException, TimeoutException {
+
+    }
+
+    @Override
+    public void sendMessageToTopicExchange(MessageToSend message) throws IOException, TimeoutException {
+
+    }
+
+    @Override
+    public void sendMessageToHeaderExchange(MessageToSend message) throws IOException, TimeoutException {
+        pub.publishMessageToHeadersExchange(message.getQueue_name(), message.getMessage());
+    }
 }
