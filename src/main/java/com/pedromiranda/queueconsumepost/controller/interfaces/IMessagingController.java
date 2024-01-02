@@ -11,4 +11,16 @@ public interface IMessagingController {
 
     @PostMapping("/")
     void sendMessageToQueue(@RequestBody MessageToSend message) throws IOException, TimeoutException;
+
+    @PostMapping("/direct-exchange/")
+    void sendMessageToDirectExchange(@RequestBody MessageToSend message) throws IOException, TimeoutException;
+
+    @PostMapping("/fannout-exchange/")
+    void sendMessageToFannoutExchange(@RequestBody MessageToSend message) throws IOException, TimeoutException;
+
+    @PostMapping("/topic-exchange/")
+    void sendMessageToTopicExchange(@RequestBody MessageToSend message) throws IOException, TimeoutException;
+
+    @PostMapping("/header-exchange/")
+    void sendMessageToHeaderExchange(@RequestBody MessageToSend message) throws IOException, TimeoutException;
 }
