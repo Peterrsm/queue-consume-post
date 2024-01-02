@@ -1,6 +1,7 @@
 package com.pedromiranda.queueconsumepost.controller.interfaces;
 
-import com.pedromiranda.queueconsumepost.message.objects.MessageToSend;
+import com.pedromiranda.queueconsumepost.message.objects.MessageToSendToQueue;
+import com.pedromiranda.queueconsumepost.message.objects.MessageToSendWithRoutingKey;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -10,17 +11,17 @@ import java.util.concurrent.TimeoutException;
 public interface IMessagingController {
 
     @PostMapping("/")
-    void sendMessageToQueue(@RequestBody MessageToSend message) throws IOException, TimeoutException;
+    void sendMessageToQueue(@RequestBody MessageToSendToQueue message) throws IOException, TimeoutException;
 
     @PostMapping("/direct-exchange/")
-    void sendMessageToDirectExchange(@RequestBody MessageToSend message) throws IOException, TimeoutException;
+    void sendMessageToDirectExchange(@RequestBody MessageToSendWithRoutingKey message) throws IOException, TimeoutException;
 
     @PostMapping("/fannout-exchange/")
-    void sendMessageToFannoutExchange(@RequestBody MessageToSend message) throws IOException, TimeoutException;
+    void sendMessageToFannoutExchange(@RequestBody MessageToSendToQueue message) throws IOException, TimeoutException;
 
     @PostMapping("/topic-exchange/")
-    void sendMessageToTopicExchange(@RequestBody MessageToSend message) throws IOException, TimeoutException;
+    void sendMessageToTopicExchange(@RequestBody MessageToSendWithRoutingKey message) throws IOException, TimeoutException;
 
     @PostMapping("/header-exchange/")
-    void sendMessageToHeaderExchange(@RequestBody MessageToSend message) throws IOException, TimeoutException;
+    void sendMessageToHeaderExchange(@RequestBody MessageToSendToQueue message) throws IOException, TimeoutException;
 }
