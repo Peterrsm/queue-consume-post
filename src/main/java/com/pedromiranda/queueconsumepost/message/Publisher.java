@@ -19,48 +19,77 @@ public class Publisher {
     @Autowired
     RabbitTemplate rabbitTemplate;
 
-    public void publishMessageToQueue(String queue, String msg) throws IOException, TimeoutException {
-        MessageToSendToQueue message = new MessageToSendToQueue(queue, msg);
-        rabbitTemplate.convertAndSend(message.getQueue_name(), message.getMessage());
+    public String publishMessageToQueue(String queue, String msg) throws IOException, TimeoutException {
+        try {
+            MessageToSendToQueue message = new MessageToSendToQueue(queue, msg);
+            rabbitTemplate.convertAndSend(message.getQueue_name(), message.getMessage());
+            return "Mensagem enviada com sucesso";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
-    public void publishMessageToHeadersExchange(String text) throws IOException {
-        byte[] byte_message = createByteMessage(text);
+    public String publishMessageToHeadersExchange(String text) throws IOException {
+        try {
+            byte[] byte_message = createByteMessage(text);
 
-        Message final_message = MessageBuilder.withBody(byte_message)
-                .setHeader("item-1", "second")
-                .build();
+            Message final_message = MessageBuilder.withBody(byte_message)
+                    .setHeader("item-1", "second")
+                    .build();
 
-        rabbitTemplate.send("Headers-Exchange", "", final_message);
+            rabbitTemplate.send("Headers-Exchange", "", final_message);
+
+            return "Mensagem enviada com sucesso";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
-    public void publishMessageToDirectExchange(String message, String routing_key) throws IOException {
-        byte[] byte_message = createByteMessage(message);
+    public String publishMessageToDirectExchange(String message, String routing_key) throws IOException {
+        try {
+            byte[] byte_message = createByteMessage(message);
 
-        Message final_message = MessageBuilder.withBody(byte_message)
-                .setReceivedRoutingKey(routing_key)
-                .build();
+            Message final_message = MessageBuilder.withBody(byte_message)
+                    .setReceivedRoutingKey(routing_key)
+                    .build();
 
-        rabbitTemplate.send("Direct-Exchange", routing_key, final_message);
+            rabbitTemplate.send("Direct-Exchange", routing_key, final_message);
+
+            return "Mensagem enviada com sucesso";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
-    public void publishMessageToFannoutExchange(String message) throws IOException {
-        byte[] byte_message = createByteMessage(message);
+    public String publishMessageToFannoutExchange(String message) throws IOException {
+        try {
+            byte[] byte_message = createByteMessage(message);
 
-        Message final_message = MessageBuilder.withBody(byte_message)
-                .build();
+            Message final_message = MessageBuilder.withBody(byte_message)
+                    .build();
 
-        rabbitTemplate.send("Fannout-Exchange", "", final_message);
+            rabbitTemplate.send("Fannout-Exchange", "", final_message);
+
+            return "Mensagem enviada com sucesso";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
-    public void publishMessageToTopicExchange(String message, String routing_key) throws IOException {
-        byte[] byte_message = createByteMessage(message);
+    public String publishMessageToTopicExchange(String message, String routing_key) throws IOException {
+        try {
+            byte[] byte_message = createByteMessage(message);
 
-        Message final_message = MessageBuilder.withBody(byte_message)
-                .setReceivedRoutingKey(routing_key)
-                .build();
+            Message final_message = MessageBuilder.withBody(byte_message)
+                    .setReceivedRoutingKey(routing_key)
+                    .build();
 
-        rabbitTemplate.send("Topic-Exchange", routing_key, final_message);
+            rabbitTemplate.send("Topic-Exchange", routing_key, final_message);
+
+            return "Mensagem enviada com sucesso";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     private byte[] createByteMessage(String message) throws IOException {

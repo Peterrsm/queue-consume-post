@@ -1,6 +1,7 @@
 package com.pedromiranda.queueconsumepost.message.objects;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,8 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageToSend implements Serializable {
+@Builder
+public class MessageToSendToQueue implements Serializable {
     String queue_name;
     String message;
 }
