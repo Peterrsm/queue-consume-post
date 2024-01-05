@@ -38,7 +38,6 @@ class MessagingServiceTest {
         when(pub.publishMessageToQueue(anyString(), anyString()))
                 .thenReturn("Mensagem enviada com sucesso");
 
-
         ResponseEntity<String> retorno = service.publishMessageToQueue(queue_name, message);
 
         Assertions.assertEquals(HttpStatus.OK, retorno.getStatusCode());
